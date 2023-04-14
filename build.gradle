@@ -1,0 +1,94 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = "Forge"
+            url = 'https://files.minecraftforge.net/maven'
+        }
+        maven {
+            name = 'spongepowered-repo'
+            url = 'https://repo.spongepowered.org/repository/maven-public/'
+        }
+        maven {
+            name = "github"
+            url = "https://github.com/juanmuscaria/maven/raw/master"
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle2:[2.3-1.0.0-SNAPSHOT,)'
+        classpath 'org.spongepowered:mixingradle:0.6-SNAPSHOT'
+        classpath 'com.integral.grimoire:GrimoireShenanigans:[1.5.3,)'
+    }
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
+apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'org.spongepowered.mixin'
+apply plugin: 'grimoire-shenanigans'
+
+version = mod_version
+group = mod_group
+archivesBaseName = mod_archives_name
+
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
+
+sourceSets {
+    main {
+        ext.refMap = mixinRefmapName
+    }
+}
+
+minecraft {
+    version = "1.12.2-14.23.5.2847"
+    mappings = "snapshot_20171003"
+    runDir = "eclipse"
+
+    replace '@VERSION@', project.version
+    // makeObfSourceJar = false
+}
+
+processResources {
+
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+        expand 'version': project.version,
+                'mod_id': mod_id,
+                'mod_name': mod_name,
+                'mod_author': mod_author,
+                'mod_description': mod_description,
+                'mc_version': mc_version,
+                'mod_version': mod_version,
+                'mod_icon': mod_icon
+    }
+
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
+
+dependencies {
+    compile name: "Grimoire-mc1.12.2-3.2.10"
+}
+
+task devJar(type: Jar) {
+    classifier = 'dev'
+    from sourceSets.main.output
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives devJar
+    archives sourcesJar
+}
