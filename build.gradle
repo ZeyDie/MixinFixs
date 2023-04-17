@@ -27,8 +27,6 @@ repositories {
     }
 }
 
-apply plugin: 'eclipse'
-apply plugin: 'maven-publish'
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'grimoire-shenanigans'
@@ -49,7 +47,7 @@ sourceSets {
 minecraft {
     version = "1.12.2-14.23.5.2847"
     mappings = "snapshot_20171003"
-    runDir = "eclipse"
+    runDir = "run"
 
     replace '@VERSION@', project.version
     // makeObfSourceJar = false
@@ -75,7 +73,7 @@ processResources {
 }
 
 dependencies {
-    compile name: "Grimoire-mc1.12.2-3.2.10"
+    compile group: "io.github.crucible", name: "Grimoire", version: "mc1.12.2-3.2.10"
 }
 
 task devJar(type: Jar) {
