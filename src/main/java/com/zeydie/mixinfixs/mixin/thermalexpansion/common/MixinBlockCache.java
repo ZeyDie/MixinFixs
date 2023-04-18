@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-@Mixin({BlockCache.class})
+@Mixin(BlockCache.class)
 public final class MixinBlockCache {
     @Overwrite(remap = false)
     public static boolean insertAllItemsFromPlayer(TileCache tile, EntityPlayer player) {
@@ -52,7 +52,10 @@ public final class MixinBlockCache {
                 player.getEntityData().setLong("thermalexpansion:CacheClick", currentTime);
                 if (!player.capabilities.isCreativeMode) {
                     if (ret != heldItem) {
+                        //TODO ZeyCodeStart
                         player.setHeldItem(hand, ret);
+                        //TODO ZeyCodeEnd
+
                         playSound = true;
                     }
                     if (!tile.getStoredInstance().isEmpty() && currentTime - time < 15L)

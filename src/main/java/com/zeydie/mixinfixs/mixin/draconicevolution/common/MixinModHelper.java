@@ -8,7 +8,7 @@ import net.minecraft.util.ResourceLocation;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-@Mixin({ModHelper.class})
+@Mixin(ModHelper.class)
 public final class MixinModHelper {
     private static final List<String> blackList = new ArrayList<>();
 
