@@ -1,5 +1,6 @@
 package com.zeydie.mixinfixs;
 
+import com.rwtema.extrautils2.gui.backend.DynamicContainer;
 import io.github.crucible.grimoire.common.api.grimmix.Grimmix;
 import io.github.crucible.grimoire.common.api.grimmix.GrimmixController;
 import io.github.crucible.grimoire.common.api.grimmix.lifecycle.IConfigBuildingEvent;
@@ -9,8 +10,7 @@ import net.minecraftforge.fml.common.Mod;
 @Mod(
         modid = "mixinfixs",
         name = "MixinFixs",
-        acceptableRemoteVersions = "*",
-        dependencies = "required-after:grimoire"
+        acceptableRemoteVersions = "*"
 )
 @Grimmix(
         id = "mixinfixs",
@@ -19,12 +19,21 @@ import net.minecraftforge.fml.common.Mod;
 public final class MixinFixs extends GrimmixController {
     @Override
     public void buildMixinConfigs(final IConfigBuildingEvent event) {
-        event.createBuilder("mixinfixs/mixins.core.json")
-                .mixinPackage("com.zeydie.mixinfixs.mixin")
+        this.createBuilder(event, "core", ConfigurationType.CORE);
+
+        this.createBuilder(event, "draconicevolution", ConfigurationType.MOD);
+        this.createBuilder(event, "extrautils2", ConfigurationType.MOD);
+        this.createBuilder(event, "thermalexpansion", ConfigurationType.MOD);
+        this.createBuilder(event, "ic2", ConfigurationType.MOD);
+    }
+
+    private void createBuilder(final IConfigBuildingEvent event, final String modId, final ConfigurationType type) {
+        event.createBuilder("mixinfixs/mixins." + modId + ".json")
+                .mixinPackage("com.zeydie.mixinfixs.mixin." + modId)
                 .commonMixins("common.*")
                 .clientMixins("client.*")
                 .serverMixins("server.*")
-                .configurationType(ConfigurationType.CORE)
+                .configurationType(type)
                 .refmap("@MIXIN_REFMAP@")
                 .verbose(true)
                 .required(true)
