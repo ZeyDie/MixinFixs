@@ -36,10 +36,8 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.IShearable;
 import net.minecraftforge.common.util.FakePlayerFactory;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Shadow;
+import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
+import org.spongepowered.asm.mixin.*;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -89,19 +87,19 @@ public abstract class MixinEntityBoomerang extends Entity {
     }
 
     @Overwrite
-    public void onUpdate() {
+    public final void onUpdate() {
         super.onUpdate();
         Entity owner = this.getOwner();
         boolean isRemote = this.world.isRemote;
         Vec3d dest = this.calcTargetVec();
         ++this.flyTime;
-        boolean returning = (Byte) this.dataManager.get(DATAWATCHER_OUT_FLAG) != 0;
+        boolean returning = this.dataManager.get(DATAWATCHER_OUT_FLAG) != 0;
         Vec3d destDiff = dest.subtract(this.posX, this.posY, this.posZ);
         float d = MathHelper.sqrt(destDiff.x * destDiff.x + destDiff.y * destDiff.y + destDiff.z * destDiff.z);
         destDiff = destDiff.normalize();
         double acceleration = (double) this.flyTime * 0.001 + (returning ? 0.05 : 0.0);
         if (returning) {
-            acceleration *= (double) (1 + this.getEnchantmentLevel(ItemBoomerang.SPEED));
+            acceleration *= 1 + this.getEnchantmentLevel(ItemBoomerang.SPEED);
         }
 
         if ((!((double) d < 1.0E-4) || this.flyTime <= 25) && !(acceleration > 1.0)) {
@@ -315,7 +313,7 @@ public abstract class MixinEntityBoomerang extends Entity {
     }
 
     @Mixin(EntityBoomerang.DamageSourceBoomerang.class)
-    public class MixinDamageSourceBoomerang extends EntityDamageSourceIndirect {
+    public static class MixinDamageSourceBoomerang extends EntityDamageSourceIndirect {
         public MixinDamageSourceBoomerang(EntityBoomerang indirectEntityIn, Entity owner) {
             super("boomerang", indirectEntityIn, owner);
         }

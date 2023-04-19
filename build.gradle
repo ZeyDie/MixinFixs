@@ -75,23 +75,27 @@ processResources {
 dependencies {
     compile group: "io.github.crucible", name: "Grimoire", version: "mc1.12.2-3.2.10"
 
-    compile group: "com", name: "BrandonsCore", version: "1.12.2-2.4.20.162-universal"
-    compile group: "com", name: "Draconic-Evolution", version: "1.12.2-2.3.28.354-universal"
+    compile group: "com", name: "BrandonsCore", version: "1.12.2-2.4.20.162-dev"
+    compile group: "com", name: "Draconic-Evolution", version: "1.12.2-2.3.28.354-dev"
 
     compile group: "com", name: "CodeChickenLib", version: "1.12.2-3.2.3.358-universal"
 
     compile group: "cofh", name: "CoFHCore", version: "1.12.2-4.6.6.1-universal"
     compile group: "cofh", name: "CoFHWorld", version: "1.12.2-1.4.0.1-universal"
-    compile group: "cofh", name: "ThermalExpansion", version: "1.12.2-5.5.7.1-universal"
+    compile group: "cofh", name: "ThermalExpansion", version: "1.12.2-5.5.7.1-dev"
     compile group: "cofh", name: "ThermalFoundation", version: "1.12.2-2.6.7.1-universal"
 
     compile group: "com", name: "extrautils2", version: "1.12-1.9.9-dev"
+
+    compile group: "com.gamerforea", name: "EventHelper", version: "1.12.2-2.8.1-dev"
 
     compile group: "ic2", name: "industrialcraft", version: "2-2.8.109-ex112-dev"
 
     compile group: "com", name: "InventoryTweaks", version: "1.63-api"
 
     compile group: "com", name: "RedstoneFlux", version: "1.12-2.1.1.1-universal"
+
+    compile group: "com", name: "TickCentral", version: "3.2-dev"
 }
 
 task devJar(type: Jar) {

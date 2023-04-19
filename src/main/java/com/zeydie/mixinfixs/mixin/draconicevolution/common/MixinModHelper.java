@@ -1,12 +1,13 @@
 package com.zeydie.mixinfixs.mixin.draconicevolution.common;
 
 import com.brandon3055.draconicevolution.integration.ModHelper;
-import java.util.ArrayList;
-import java.util.List;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Mixin(ModHelper.class)
 public final class MixinModHelper {
