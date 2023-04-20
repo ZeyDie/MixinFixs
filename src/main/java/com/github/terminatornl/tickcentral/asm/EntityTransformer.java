@@ -29,8 +29,10 @@ public class EntityTransformer implements IClassTransformer {
 
     public byte[] transform(String name, String transformedName, byte[] basicClass) {
         //TODO ZeyCodeStart
-        if (name.startsWith("com/zeydie/mixinfixs/mixin") || transformedName.startsWith("com.zeydie.mixinfixs.mixin"))
+        if (name.startsWith("com/zeydie/mixinfixs/mixin") || transformedName.startsWith("com.zeydie.mixinfixs.mixin")) {
+            TickCentral.LOGGER.info("Найдены Mixin классы " + name + ", игнорируем...");
             return basicClass;
+        }
         //TODO ZeyCodeEnd
 
         try {
