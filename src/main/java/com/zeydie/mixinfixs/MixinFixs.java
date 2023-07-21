@@ -20,7 +20,7 @@ public final class MixinFixs extends GrimmixController {
     public void buildMixinConfigs(final IConfigBuildingEvent event) {
         this.createBuilder(event, "minecraft", ConfigurationType.CORE);
 
-        this.createBuilder(event, "hammerlib", ConfigurationType.MOD);
+        this.createBuilder(event, "hammerlib", ConfigurationType.CORE);
     }
 
     private void createBuilder(final IConfigBuildingEvent event, final String modId, final ConfigurationType type) {
