@@ -23,8 +23,6 @@ public abstract class MixinEntityArmorStand extends EntityLivingBase {
     public void onAttackEntityFrom(DamageSource source, float damage, CallbackInfoReturnable<Boolean> callbackInfoReturnable) {
         final Entity entity = source.getTrueSource();
 
-        System.out.println("|Mixin: " + entity);
-
         if (entity instanceof EntityPlayer)
             if (EventUtils.cantAttack((EntityPlayer) entity, this))
                 callbackInfoReturnable.setReturnValue(false);
