@@ -18,13 +18,9 @@ import net.minecraftforge.fml.common.Mod;
 public final class MixinFixs extends GrimmixController {
     @Override
     public void buildMixinConfigs(final IConfigBuildingEvent event) {
-        this.createBuilder(event, "core", ConfigurationType.CORE);
+        this.createBuilder(event, "minecraft", ConfigurationType.CORE);
 
-        this.createBuilder(event, "draconicevolution", ConfigurationType.MOD);
-        this.createBuilder(event, "extrautils2", ConfigurationType.MOD);
-        this.createBuilder(event, "ic2", ConfigurationType.MOD);
-        this.createBuilder(event, "refinedstorage", ConfigurationType.MOD);
-        this.createBuilder(event, "thermalexpansion", ConfigurationType.MOD);
+        this.createBuilder(event, "hammerlib", ConfigurationType.MOD);
     }
 
     private void createBuilder(final IConfigBuildingEvent event, final String modId, final ConfigurationType type) {
